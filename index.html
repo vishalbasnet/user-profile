@@ -152,63 +152,6 @@
     </div>
 
     <style>
-        import { 
-            getAuth, 
-            onAuthStateChanged 
-        } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
-        import { 
-            getDatabase,
-            ref,
-            set,
-            onValue
-        } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCq3pg99DOWox_k4_Wm1S9fHyUw5vLBVBg",
-            authDomain: "lunchfree-ele.firebaseapp.com",
-            databaseURL: "https://lunchfree-ele-default-rtdb.firebaseio.com",
-            projectId: "lunchfree-ele",
-            storageBucket: "lunchfree-ele.firebasestorage.app",
-            messagingSenderId: "540737203934",
-            appId: "1:540737203934:web:d4f1ef0a1eccd0d45d5c4f"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const database = getDatabase(app);
-
-        // Check authentication state
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // User is signed in
-                loadProfile(user);
-            } else {
-                // Redirect to login if not authenticated
-                window.location.href = '/index.html';
-            }
-        });
-
-        // Load user profile
-        function loadProfile(user) {
-            if (!user) return; // Add guard clause
-            
-            // Set email immediately from auth user object
-            document.getElementById('email').value = user.email || '';
-            
-            const userRef = ref(database, 'users/' + user.uid);
-            
-            onValue(userRef, (snapshot) => {
-                const data = snapshot.val();
-                if (data) {
-                    // Don't overwrite email from database since it comes from auth
-                    document.getElementById('username').value = data.username || '';
-                    document.getElementById('fullName').value = data.fullName || '';
-                    document.getElementById('bio').value = data.bio || '';
-                }
-            });
-        }
-
         .home-button {
             margin-top: 20px;
             background: rgba(255, 255, 255, 0.1);
@@ -270,7 +213,7 @@
                 loadProfile(user);
             } else {
                 // Redirect to login if not authenticated
-                window.location.href = '/index.html';
+                window.location.href = 'index.html';
             }
         });
 
